@@ -25,6 +25,16 @@ public:
     friend std::ostream &operator<<(std::ostream &out, const Punct &p);
 
     friend Punct operator*(double scalar, const Punct &p);
+
+    double getX() const {
+        return x;
+    }
+    double getY() const {
+        return y;
+    }
+    double getZ() const {
+        return z;
+    }
 };
 
 

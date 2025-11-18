@@ -4,26 +4,30 @@
 
 #ifndef PROIECT_OOP_ENTITATECOSMICA_H
 #define PROIECT_OOP_ENTITATECOSMICA_H
-
+#include <string>
+using namespace std;
 
 class EntitateCosmica {
-private:
+protected:
     int id;
+    string nume;
+
+private:
     static int idGenerator;
 
 public:
-    EntitateCosmica() {
+    EntitateCosmica(string nume="Entitate nedenumita"):nume(nume) {
         id = idGenerator;
         idGenerator++;
     }
-
-    virtual ~EntitateCosmica() = default;
 
     int getId() const {
         return id;
     }
 
- //   virtual void AfiseazaDetalii() =0;
+    virtual void afiseazaDetalii() const =0;
+
+    virtual ~EntitateCosmica() = default;
 };
 
 

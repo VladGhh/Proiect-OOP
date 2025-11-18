@@ -9,4 +9,18 @@ add_executable(Proiect_OOP
         Punct.cpp
         EntitateCosmica.cpp
         ObiectCelest.cpp
+        Stea.cpp
+        Stea.h
+        Planeta.cpp
+        Planeta.h
+        Cometa.cpp
+        Cometa.h
+        NavaSpatiala.cpp
+        NavaSpatiala.h
+        Astronaut.cpp
+        Astronaut.h
+        SistemStelar.cpp
+        SistemStelar.h
+        HartaVizualizator.cpp
+        HartaVizualizator.h
 )
