@@ -6,21 +6,13 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(Proiect_OOP
         main.cpp
-        Punct.cpp
-        EntitateCosmica.cpp
-        ObiectCelest.cpp
-        Stea.cpp
-        Stea.h
-        Planeta.cpp
-        Planeta.h
-        Cometa.cpp
-        Cometa.h
-        NavaSpatiala.cpp
-        NavaSpatiala.h
-        Astronaut.cpp
-        Astronaut.h
-        SistemStelar.cpp
-        SistemStelar.h
-        HartaVizualizator.cpp
-        HartaVizualizator.h
+        GameUtils.h
+        Item.cpp
+        Item.h
+        Entity.cpp
+        Entity.h
+        Player.cpp
+        Player.h
+        Room.cpp
+        Room.h
 )
