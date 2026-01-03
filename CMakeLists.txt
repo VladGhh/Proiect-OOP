@@ -13,7 +13,6 @@ add_executable(Proiect_OOP
         Entity.h
         Player.cpp
         Player.h
-        Room.cpp
         Room.h
         Map.cpp
         Map.h
