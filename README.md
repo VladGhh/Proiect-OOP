@@ -48,14 +48,4 @@ Au fost definite **3 ierarhii principale** de clase:
 ### 7. Membri Statici
 * Utilizarea membrilor statici pentru contorizarea instanțelor de boși activi în joc.
 
----
-
-## Instructiuni de compilare si rulare
-
 Proiectul este configurat folosind CMake.
-
-### Varianta 1: Rulare din Terminal
-
-1. **Configurare:**
-   ```bash
-   cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
