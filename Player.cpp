@@ -23,6 +23,23 @@ Player::~Player() {
 void Player::addItem(Item *it) {
     backpack.add(it);
 }
+void Player::restAtBonfire() {
+    hp=maxHp;
+    int ok=0;
+    for (int i = 0; i < backpack.size(); i++) {
+        if (backpack.get(i)->getName()=="Licoare ajutatoare"){
+            while (backpack.getCount(i)<5) {
+                backpack.add(new Consumable("Licoare ajutatoare", 60, false));
+            }
+            ok=1;
+        }
+    }
+       if (ok==0){
+            for (int i = 0; i < 5 ; i++)
+                 {backpack.add(new Consumable("Licoare ajutatoare", 60, false));}
+        }
+
+}
 
 void Player::useItem(int index, Character *enemy) {
     try {

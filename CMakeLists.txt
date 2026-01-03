@@ -15,4 +15,6 @@ add_executable(Proiect_OOP
         Player.h
         Room.cpp
         Room.h
+        Map.cpp
+        Map.h
 )

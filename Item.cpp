@@ -6,17 +6,13 @@
 #include <cstring>
 using namespace std;
 
-
-
 //implementare item
 Item::Item(string name):name(name){}
 Item::~Item(){}
 string Item::getName() const {return name;}
 
-
-
 //implementare cheie
-KeyItem::KeyItem(string name,char* desc):Item(name) {
+KeyItem::KeyItem(string name, const char* desc):Item(name) {
     description=new char[strlen(desc)+1];
     strcpy(description,desc);
 }
@@ -33,23 +29,17 @@ if (this!=&other) {
 void KeyItem::use() const{ cout<<" [CHEIE] Cheia se foloseste automat la usa.\n";}
 void KeyItem::display() const{ cout<< name<<"("<<description<<")";}
 
-
-
 //implementare arme
 Weapon::Weapon(string name, int d):Item(name),damage(d) {}
 void Weapon::use() const{ cout<<" [ECHIPAT] Ai scos arma "<<name<<".\n";}
 void Weapon::display() const{ cout<< name<<"[DMG: "<<damage<<"]";}
 int Weapon::getDamage() const {return damage;}
 
-
-
 //implementare arme magice
 MagicWeapon::MagicWeapon(string name, int d, int bonus): Weapon(name,d),magicBonus(bonus){}
 void MagicWeapon::display() const { cout<< name<<"[DMG: "<<damage<<" physical damage + "<<magicBonus<<" magical damage]";}
 void MagicWeapon::use() const{ cout<<" [ECHIPAT] Arma ta magica straluceste "<<name<<".\n";}
 int MagicWeapon::getDamage() const {  return magicBonus+damage;}
-
-
 
 //implementare consumabile
 Consumable::Consumable(string name, int power, bool offensive):Item(name),power(power),isOffensive(offensive){}
@@ -64,10 +54,3 @@ void Consumable::display() const {
 }
 int Consumable::getPower() const {return power;}
 bool Consumable::getIsOffensive() const {return isOffensive;}
-
-
-
-
-
-
-

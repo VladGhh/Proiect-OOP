@@ -21,6 +21,7 @@ public:
     void attack(Character *target) override;
     bool hasKey(const std::string& keyName);
     void showInventory();
+    void restAtBonfire();
 };
 
 

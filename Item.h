@@ -10,8 +10,6 @@ using namespace std;
 class Player;
 class Entity;
 
-
-
 //clasa item
 class Item {
 protected:
@@ -24,21 +22,17 @@ public:
     virtual void display() const = 0;
 };
 
-
-
 //clasa cheie
 class KeyItem:public Item {
 private:
     char* description;
 public:
-    KeyItem(string name,char* desc);
+    KeyItem(string name, const char* desc); // Modified to const char*
     ~KeyItem();
-    KeyItem& operator=(const KeyItem& other);//copiere cheie
+    KeyItem& operator=(const KeyItem& other);
     void use() const override;
     void display() const override;
 };
-
-
 
 //clasa arma
 class Weapon: public Item {
@@ -51,8 +45,6 @@ public:
     void display() const override;
 };
 
-
-
 //clasa arma magica
 class MagicWeapon: public Weapon {
 private:
@@ -64,9 +56,7 @@ public:
     void display() const override;
 };
 
-
-
-//clasa consumabile(bombe si cutite si altele)
+//clasa consumabile
 class Consumable:public Item {
 private:
     int power;
@@ -78,9 +68,5 @@ public:
     void use() const override;
     void display() const override;
 };
-
-
-
-
 
 #endif //PROIECT_OOP_ITEM_H

@@ -3,17 +3,14 @@
 //
 
 #include "Entity.h"
-//#include "Player.h"
+#include "Player.h"
 
 int Boss::bossCount = 0;
-
 
 //Entitate
 Entity::Entity(string name) :name(name){}
 Entity::~Entity(){}
 string Entity::getName() const {return name;}
-
-
 
 //Personaj
 Character::Character(string name,int maxHp) :Entity(name),hp(maxHp),maxHp(maxHp){}
@@ -29,8 +26,9 @@ void Character::heal(int amount) {
     if (hp > maxHp)
         hp = maxHp;
 }
-
-
+void Character::fullHeal() {
+    hp = maxHp;
+}
 
 //inamic
 Enemy::Enemy(string name, int maxHp, int dmg): Character(name,maxHp),baseDamage(dmg){}
@@ -39,11 +37,16 @@ void Enemy::attack(Character *target) {
     target->takeDamage(baseDamage);
 }
 
-
+// AICI AM MODIFICAT: Doar le da viata full, nu mai scrie nimic pe ecran
+void Enemy::respawn() {
+    fullHeal();
+}
 
 //Boss
 Boss::Boss(string name, int maxHp, int dmg, string ability) :Enemy(name,maxHp,dmg),specialAbility(ability){bossCount ++;}
 int Boss::getCount() {return bossCount;}
+void Boss::decreaseCount() { bossCount--; }
+
 void Boss::attack(Character *target) {
     if (hp <= maxHp/2) {
         cout<<" [BOSS] "<<name<< " foloseste " <<specialAbility<<"!\n";
@@ -54,10 +57,8 @@ void Boss::attack(Character *target) {
     }
 }
 
-
-
 //NPC
-NPC::NPC(string name, string desc, Item *gift):Entity(name),description(desc),giftItem(gift),itemGiven(false) {}
+NPC::NPC(string name, string desc, string dialogue ,Item *gift):Entity(name),description(desc),giftItem(gift),dialogue(dialogue),itemGiven(false) {}
 NPC::~NPC(){if (giftItem) delete giftItem;}
 void NPC::describe(){cout<<" [NPC] "<<description<<"\n";}
 void NPC::interact(Player *p) {
@@ -69,8 +70,3 @@ void NPC::interact(Player *p) {
         giftItem = nullptr;
     }
 }
-
-
-
-
-

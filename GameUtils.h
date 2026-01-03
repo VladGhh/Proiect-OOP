@@ -34,6 +34,11 @@ public:
     }
 };
 
+class BadInputException:public GameException {
+public:
+    BadInputException():GameException("Alege o varianta buna"){}
+};
+
 
 //clasa template inventar
 template <class T>
