@@ -1,0 +1,25 @@
+name: CMake Build
+
+# Cand se activeaza? La orice Push pe branch-ul main sau master
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    # Ruleaza pe un calculator virtual cu Linux (Ubuntu)
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Descarca codul tau pe calculatorul virtual
+      - uses: actions/checkout@v3
+
+      # 2. Configureaza proiectul (verifica daca ai CMakeLists.txt corect)
+      - name: Configure CMake
+        run: cmake -S . -B build
+
+      # 3. Compileaza proiectul (verifica daca ai erori de sintaxa)
+      - name: Build
+        run: cmake --build build
