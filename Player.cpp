@@ -61,7 +61,7 @@ void Player::useItem(int index, Character *enemy) {
             } else {
                 //heal
                 c->use();
-                heal(c->getPower());
+                *this+=(c->getPower());
                 cout << "   -> HP Refacut: " << hp << "/" << maxHp << "\n";
                 backpack.decreaseCount(index);
             }

@@ -28,8 +28,8 @@ Leaderboard::Leaderboard() {
 Leaderboard::~Leaderboard() {
     for (int i = 0; i < winBoard.size(); i++)
         delete winBoard[i];
-    for (int i = 0; i < loseBoard.size(); i++)
-        delete loseBoard[i];
+    for (auto p: loseBoard)
+        delete p;
 }
 
 void Leaderboard::addPerson(Person *person) {
@@ -39,8 +39,8 @@ void Leaderboard::addPerson(Person *person) {
              [](const Person *A, const Person *B) { return A->getScore() > B->getScore(); });
     } else {
         loseBoard.push_back(person);
-        sort(loseBoard.begin(), loseBoard.end(),
-             [](const Person *A, const Person *B) { return A->getScore() > B->getScore(); });
+        loseBoard.sort(
+            [](const Person *A, const Person *B) { return A->getScore() > B->getScore(); });
     }
 }
 
@@ -50,8 +50,10 @@ void Leaderboard::showLeaderboard() {
         cout<<" "<<i+1<<". "<<*winBoard[i];
     }
     cout<<"Cei ce n au reusit si au devenit Hollow"<<endl;
-    for (int i = 0; i < loseBoard.size(); i++) {
-        cout<<" "<<i+1<<". "<<*loseBoard[i];
+    int i=0;
+    for (auto p: loseBoard) {
+        cout<<" "<<i+1<<". "<<*p;
+        i++;
     }
 }
 void Leaderboard::populate() {

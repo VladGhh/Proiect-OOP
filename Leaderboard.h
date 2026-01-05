@@ -7,6 +7,7 @@
 #include<string>
 #include<vector>
 #include<iostream>
+#include<list>
 using namespace std;
 
 class Person {
@@ -31,7 +32,7 @@ public:
 
 class Leaderboard {
 private:
-    vector<Person*> loseBoard;
+    list<Person*> loseBoard;
     vector<Person*> winBoard;
 public:
    Leaderboard();

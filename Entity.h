@@ -24,7 +24,8 @@ public:
     virtual void takeDamage(int dmg);
     bool isAlive() const;
     int getHp() const;
-    void heal(int amount);
+   // void heal(int amount);
+    Character& operator+=(int amount);
     void fullHeal();
     virtual void attack(Character* target)=0;
 };

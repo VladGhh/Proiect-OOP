@@ -21,11 +21,18 @@ void Character::takeDamage(int dmg) {
 }
 bool Character::isAlive() const {return hp > 0;}
 int Character::getHp() const {return hp;}
-void Character::heal(int amount) {
-    hp += amount;
-    if (hp > maxHp)
-        hp = maxHp;
+Character&  Character::operator+=(int amount) {
+    this->hp+=amount;
+    if (this->hp>this->maxHp)
+        this->hp=this->maxHp;
+    return *this;
+
 }
+//void Character::heal(int amount) {
+//    hp += amount;
+//    if (hp > maxHp)
+//        hp = maxHp;
+//}
 void Character::fullHeal() {
     hp = maxHp;
 }

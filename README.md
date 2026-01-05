@@ -11,7 +11,7 @@ Jucătorul preia rolul unui personaj care trebuie să exploreze o hartă interco
 * **Navigare:** Sistem de deplasare între camere bazat pe un graf (implementat prin liste de adiacență folosind vectori).
 * **Sistem de Lupta:** Luptă pe ture contra inamicilor și a Boșilor, utilizând arme și obiecte ofensive.
 * **Inventar:** Gestionarea obiectelor (arme, consumabile, chei) într-un container dinamic.
-* **Leaderboard:** Sistem de clasament care memorează eroii câștigători și pe cei învinși.
+* **Leaderboard:** Sistem de clasament care memorează eroii câștigători și pe cei învinși, folosind structuri de date diferite pentru optimizare.
 * **Mecanica Bonfire:** Puncte de control care refac viața jucătorului dar declanșează reînvierea (respawn-ul) inamicilor pe hartă.
 * **Interactiuni:** Dialoguri cu NPC-uri și colectarea de obiecte din cufere.
 
@@ -23,7 +23,8 @@ Proiectul respectă cerințele laboratorului, implementând următoarele concept
 
 ### 1. Ierarhii de Clase
 Au fost definite mai multe ierarhii și clase principale:
-* **Ierarhia Entity**: Clasa de bază abstractă pentru `Player`, `Enemy`, `Boss` și `NPC`.
+* **Ierarhia Entity**: Clasa de bază din care derivă `NPC` și `Character`.
+* **Clasa Abstractă Character**: Clasă de bază abstractă (conține metoda pur virtuală `attack`) pentru `Player`, `Enemy` și `Boss`.
 * **Ierarhia Item**: Clasa de bază pentru `Weapon`, `Consumable` și `KeyItem`.
 * **Clasa Person**: Utilizată pentru gestionarea intrărilor în Leaderboard.
 * **Ierarhia GameException**: Gestionarea erorilor proprii, derivată din `std::exception`.
@@ -36,26 +37,32 @@ Au fost definite mai multe ierarhii și clase principale:
 * **Operatorul <<:** A fost supraîncărcat pentru clasa `Person` pentru a permite afișarea directă la consolă.
 * **Functii friend:** Au fost utilizate pentru a permite operatorului de afișare accesul la datele private ale claselor.
 * **Operatorul = si Copy Constructor:** Implementate explicit în clasa `KeyItem` pentru a gestiona corect copierea obiectelor (Rule of Three).
+* **Operatorul += (Functie Membra):** Supraîncărcat în clasa `Character` pentru a implementa mecanica de **Heal**. Permite modificarea directă a obiectului curent (`*this += amount`), demonstrând utilizarea unui operator membru care alterează starea internă.
 
-### 4. Polimorfism si RTTI
-* Utilizarea **funcțiilor virtuale** (`attack`, `use`, `visit`) pentru comportament polimorfic la rulare.
-* Utilizarea **dynamic_cast (RTTI)** pentru a determina tipul exact al obiectelor la runtime (de exemplu, verificarea dacă un `Item` este `Weapon` sau `Consumable` înainte de utilizare).
+### 4. Polimorfism, RTTI si Casting (Upcast & Downcast)
+* **Upcasting:** Utilizat extensiv pentru tratarea uniformă a obiectelor derivate.
+    * **Exemplu NPC:** NPC-urile dețin un pointer generic la clasa de bază `Item*` pentru cadouri. Acest pointer poate face referire la obiecte de tip `Weapon`, `Consumable` sau `KeyItem` fără a cunoaște tipul exact la compilare.
+    * **Exemplu Inventar:** Containerul stochează pointeri `Item*`, permițând salvarea oricărui tip de obiect colectabil.
+* **Downcasting si RTTI:** Utilizarea **dynamic_cast** pentru a recupera tipul specific al obiectelor la runtime.
+    * În clasa `Player`: Se verifică dacă un `Item*` este `Consumable*` (pentru a fi folosit) sau `Weapon*` (pentru a fi echipat), asigurând Type Safety.
+* **Functii Virtuale:** Metodele `attack`, `use` și `visit` sunt definite virtual pentru a asigura legarea dinamică (Late Binding).
 
-### 5. Gestiunea Resurselor si Memoriei
-* Alocare dinamică a memoriei pentru entități și camere.
-* Implementarea destructorilor (inclusiv **destructori virtuali** în clasele de bază) pentru a asigura eliberarea corectă a memoriei și evitarea memory leak-urilor (`~Map`, `~Player`, `~Room`).
+### 5. Design Patterns
+* **Trigger / Observer Mechanism:** Implementat pentru mecanica de **Bonfire**. Clasa `Room` acționează ca un declanșator care notifică clasa principală `Map` atunci când jucătorul se odihnește. Acest lucru permite decuplarea logicii camerei de logica globală a hărții.
 
-### 6. Exceptii
-* Definirea unei ierarhii proprii de excepții (`GameException`, `InvalidItemException`, `InvalidChoice`).
+### 6. STL (Standard Template Library)
+* **std::vector**: Utilizat pentru stocarea inventarului, a listei de vecini și a listei câștigătorilor (`winBoard`).
+* **std::list**: Utilizat pentru lista jucătorilor învinși (`loseBoard`) în Leaderboard, demonstrând utilizarea a două containere diferite.
+* **Algoritmi si Lambda:** Utilizarea `std::sort` (pentru vector) și `list::sort` (pentru listă) împreună cu **funcții lambda** pentru sortarea clasamentului.
+
+### 7. Gestiunea Resurselor si Exceptii
+* Alocare dinamică a memoriei și implementarea destructorilor virtuali pentru evitarea memory leak-urilor.
 * Utilizarea blocurilor **try-catch** pentru validarea input-ului utilizatorului și a acțiunilor critice.
-
-### 7. STL (Standard Template Library)
-* **std::vector**: Utilizat extensiv pentru stocarea inventarului, a listei de vecini pentru fiecare cameră și pentru structura hărții.
-* **Algoritmi si Lambda:** Utilizarea `std::sort` împreună cu **funcții lambda** în cadrul clasei `Inventory` pentru sortarea obiectelor.
 
 ### 8. Membri Statici
 * Utilizarea membrilor statici pentru contorizarea instanțelor de boși activi în joc.
 
 ---
+
 
 Proiectul este configurat folosind CMake.
