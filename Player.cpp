@@ -101,4 +101,10 @@ void Player::showInventory() {
             cout << " [ " << backpack.getCount(i) << " ] ";
         cout << "\n";
     }
+
+}
+istream& operator>>(istream& i, Player& p) {
+    cout<<"introdu numele eroului: ";
+    i>>p.name;
+    return i;
 }

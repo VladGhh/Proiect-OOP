@@ -5,12 +5,11 @@
 using namespace std;
 
 int main() {
-    cout << "Dati un nume eroului: ";
-    string name;
-    cin >> name;
 
-    Player* p = new Player(name);
+
+    Player* p = new Player("");
     Map gameMap(p);
+    cin>>*p;
     Leaderboard leaderboard;
     leaderboard.populate();
     while(p->isAlive() && Boss::getCount() > 0) {

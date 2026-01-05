@@ -38,6 +38,8 @@ Au fost definite mai multe ierarhii și clase principale:
 * **Functii friend:** Au fost utilizate pentru a permite operatorului de afișare accesul la datele private ale claselor.
 * **Operatorul = si Copy Constructor:** Implementate explicit în clasa `KeyItem` pentru a gestiona corect copierea obiectelor (Rule of Three).
 * **Operatorul += (Functie Membra):** Supraîncărcat în clasa `Character` pentru a implementa mecanica de **Heal**. Permite modificarea directă a obiectului curent (`*this += amount`), demonstrând utilizarea unui operator membru care alterează starea internă.
+* **Operatorul >> (Citire):** Supraîncărcat pentru clasa `Player` pentru a permite inițializarea datelor eroului direct de la tastatură (`std::cin >> player`), encapsulând logica de input.
+
 
 ### 4. Polimorfism, RTTI si Casting (Upcast & Downcast)
 * **Upcasting:** Utilizat extensiv pentru tratarea uniformă a obiectelor derivate.
@@ -62,6 +64,8 @@ Au fost definite mai multe ierarhii și clase principale:
 ### 8. Membri Statici
 * Utilizarea membrilor statici pentru contorizarea instanțelor de boși activi în joc.
 
+### 9. Const Correctness
+* Utilizarea intensivă a cuvântului cheie **const** pentru metodele de tip getter (ex: `getName`, `getHp`, `getScore`, `isAlive`) și pentru parametrii transmiși prin referință, garantând integritatea datelor și protejând starea obiectelor împotriva modificărilor accidentale.
 ---
 
 

@@ -22,6 +22,8 @@ public:
     bool hasKey(const std::string& keyName);
     void showInventory();
     void restAtBonfire();
+
+    friend std::istream& operator>>(std::istream&, Player&);
 };
 
 
