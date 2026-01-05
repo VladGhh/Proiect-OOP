@@ -16,4 +16,6 @@ add_executable(Proiect_OOP
         Room.h
         Map.cpp
         Map.h
+        Leaderboard.cpp
+        Leaderboard.h
 )

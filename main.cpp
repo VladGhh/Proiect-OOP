@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Player.h"
 #include "Map.h"
-
+#include "Leaderboard.h"
 using namespace std;
 
 int main() {
@@ -11,7 +11,8 @@ int main() {
 
     Player* p = new Player(name);
     Map gameMap(p);
-
+    Leaderboard leaderboard;
+    leaderboard.populate();
     while(p->isAlive() && Boss::getCount() > 0) {
         gameMap.showMap();
 
@@ -24,11 +25,17 @@ int main() {
 
         if(!p->isAlive()) {
             cout << "AI MURIT.\n";
+            Person* pr = new Person(gameMap.getScore(),p->getName(),false);
+            leaderboard.addPerson(pr);
+            leaderboard.showLeaderboard();
             break;
         }
 
         if(Boss::getCount() == 0) {
             cout << "VICTORIE! TOTI BOSSII AU FOST INVINS!\n";
+            Person* pr = new Person(gameMap.getScore(),p->getName(),true);
+            leaderboard.addPerson(pr);
+            leaderboard.showLeaderboard();
             break;
         }
 

@@ -37,7 +37,7 @@ void Enemy::attack(Character *target) {
     target->takeDamage(baseDamage);
 }
 
-// AICI AM MODIFICAT: Doar le da viata full, nu mai scrie nimic pe ecran
+
 void Enemy::respawn() {
     fullHeal();
 }

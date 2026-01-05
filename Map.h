@@ -11,6 +11,7 @@ class Player;
 class Map {
 private:
     int currentRoom;
+    int score;
     vector<vector<int>> map;
 
     // Pointeri expliciti
@@ -28,6 +29,7 @@ public:
     void processCurrentRoom(bool &respawnNeeded);
     void move();
     void respawnAll();
+    int getScore();
 };
 
 #endif //PROIECT_OOP_MAP_H

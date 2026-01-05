@@ -15,57 +15,57 @@ Map::Map(Player* play) :player(play){
         {8},
         {9}
     };
-
+    score = 0;
     currentRoom=1;
 
     Consumable* c = new Consumable("Humanity", 60, false);
-    Room1 = new Room<Consumable*>("Altarul Firelink", "Un loc linistit.", c, player);
+    Room1 = new Room<Consumable*>("Altarul Firelink", "Un loc linistit unde sa te relaxezi, nu sunt inamici aici.", c, player);
 
     Enemy* e = new Enemy("Hollow Soldier", 50, 7);
-    Room2 = new Room<Enemy*>("Orasul Ruinat", "Case distruse.", e, player);
+    Room2 = new Room<Enemy*>("Orasul Ruinat", "Case distruse si un aer de pericol.", e, player);
 
     Enemy* e3 = new Boss("Demon Taur", 130, 20, "Smash");
-    Room3 = new Room<Enemy*>("Podul Mare", "Un pod lung.", e3, player);
+    Room3 = new Room<Enemy*>("Podul Mare", "Un pod aparent interminabil care ascunde o poveste.", e3, player);
 
     Consumable* c4 = new Consumable("Firebomb", 50, true);
-    Room4 = new Room<Consumable*>("Cimitirul", "Morminte vechi.", c4, player);
+    Room4 = new Room<Consumable*>("Cimitirul", "Morminte vechi si abandonate.", c4, player);
 
     Enemy* e5 = new Enemy("Balder Knight", 60, 20);
-    Room5 = new Room<Enemy*>("Biserica", "Sunet de clopot.", e5, player);
+    Room5 = new Room<Enemy*>("Biserica", "Sunetul de clopot iti da fiori.", e5, player);
 
     Enemy* e6 = new Boss("Gargoyle", 100, 10, "Flame Breath");
     Room6 = new Room<Enemy*>("Acoperis", "Cerul e aproape.", e6, player);
 
     Weapon* c7 = new Weapon("Uchikatana", 100);
     NPC* n7 = new NPC("Andre", "Fierar", "Nu te lasa ucis.", c7);
-    Room7 = new Room<NPC*>("Atelier", "Sunet de ciocan.", n7, player);
+    Room7 = new Room<NPC*>("Atelier", "Sunete tulburatoare de ciocan .", n7, player);
 
     Enemy* e8 = new Enemy("Serpent Man", 70, 25);
-    Room8 = new Room<Enemy*>("Fortareata Sen", "Capcane.", e8, player);
+    Room8 = new Room<Enemy*>("Fortareata Sen", "Capcane la tot pasul!.", e8, player);
 
     Consumable* c9 = new Consumable("Divine Blessing", 120, false);
-    Room9 = new Room<Consumable*>("Balcon", "Priveliste.", c9, player);
+    Room9 = new Room<Consumable*>("Balcon", "Priveliste dezolanta asupra orasului.", c9, player);
 
     Enemy* e10 = new Boss("Silver Knight", 90, 30, "Lightning");
-    Room10 = new Room<Enemy*>("Anor Londo", "Orasul Zeilor.", e10, player);
+    Room10 = new Room<Enemy*>("Anor Londo", "Orasul Zeilor, avand un apus superb.", e10, player);
 
     KeyItem* c11 = new KeyItem("Cheia Bisericii", "Cheia ce deschide usa inspre biserica");
     NPC* n11 = new NPC("Solaire", "Cavalerul Soarelui", "Praise the Sun!", c11);
-    Room11 = new Room<NPC*>("Altarul Soarelui", "Statuie veche.", n11, player);
+    Room11 = new Room<NPC*>("Altarul Soarelui", "O statuie veche indreptata inspre soare.", n11, player);
 }
 
 void Map::processCurrentRoom(bool &respawnNeeded) {
     switch(currentRoom) {
         case 1: Room1->visit(respawnNeeded); break;
-        case 2: Room2->visit(respawnNeeded); break;
-        case 3: Room3->visit(respawnNeeded); break;
+        case 2: Room2->visit(respawnNeeded);  score+=220; break;
+        case 3: Room3->visit(respawnNeeded); score+=540; break;
         case 4: Room4->visit(respawnNeeded); break;
-        case 5: Room5->visit(respawnNeeded); break;
-        case 6: Room6->visit(respawnNeeded); break;
+        case 5: Room5->visit(respawnNeeded); score+=230; break;
+        case 6: Room6->visit(respawnNeeded); score+=620; break;
         case 7: Room7->visit(respawnNeeded); break;
-        case 8: Room8->visit(respawnNeeded); break;
+        case 8: Room8->visit(respawnNeeded); score+=200; break;
         case 9: Room9->visit(respawnNeeded); break;
-        case 10: Room10->visit(respawnNeeded); break;
+        case 10: Room10->visit(respawnNeeded);  score+=510; break;
         case 11: Room11->visit(respawnNeeded); break;
     }
 }
@@ -129,4 +129,7 @@ Map::~Map() {
     delete Room4; delete Room5; delete Room6;
     delete Room7; delete Room8; delete Room9;
     delete Room10; delete Room11;
+}
+int Map::getScore() {
+    return score;
 }
